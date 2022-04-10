@@ -1,23 +1,32 @@
+interface Publication {
+    val price : Int
+    val wordCount : Int
+    fun getType (): String
+}
+
 fun main(args: Array<String>) {
+    buy(publication = Publication)
 
-    println ("Здравствуйте, чтобы пройти в торговый центр вам нужно указать свои контактные данные:")
-
-    print("Имя:")
-    val name = readLine()
-
-    print("Фамилия:")
-    val surname = readLine()
-
-    print ("Возраст:")
-    val age = readLine()
-    val a = age!!.toInt()
-
-    if (a>=18) {
-        println("$name $surname можете пройти в торговый центр")
-    }else{ if(a<14){
-        println("$name $surname вы должны пройти с полицией")
-    } else println("$name $surname мы вынуждены не впускать вас")
-
+    abstract class Book : Publication {
+        val page1: String? = null
+        val page2: String? = "Hello"
+        override fun getType(): String {
+            return if (wordCount<=1000) {
+                ("Flash Fiction")
+            } else{if (wordCount<=7500) {
+                ("Short Story")
+            } else ("Novel")
+            }
+        }
     }
 
+    abstract class Magazine: Publication {
+        override fun getType(): String {
+            return "Magazine"
+        }
+    }
+}
+
+fun buy(publication: String) {
+    println("The purchase is complete. The purchase amount was ${Publication.price}")
 }
