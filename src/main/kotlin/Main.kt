@@ -1,23 +1,37 @@
 fun main(args: Array<String>) {
 
-    println ("Здравствуйте, чтобы пройти в торговый центр вам нужно указать свои контактные данные:")
+    val BookOne : Book?= null
+    val Booktwo= Book(price = 10, wordCount = 150)
 
-    print("Имя:")
-    val name = readLine()
+    BookOne?.let{
+        buy(it)
+    }
+    Booktwo.let{
+        buy(it)
+    }
+}
+interface Publication {
+    val price : Int
+    val wordCount : Int
+    fun getType (): String
+}
 
-    print("Фамилия:")
-    val surname = readLine()
 
-    print ("Возраст:")
-    val age = readLine()
-    val a = age!!.toInt()
 
-    if (a>=18) {
-        println("$name $surname можете пройти в торговый центр")
-    }else{ if(a<14){
-        println("$name $surname вы должны пройти с полицией")
-    } else println("$name $surname мы вынуждены не впускать вас")
-
+fun buy(publication: Publication?) {
+    println("The purchase is complete. The purchase amount was ${publication?.price}")
+}
+class Book(override val price: Int, override val wordCount: Int) : Publication {
+    override fun getType(): String =
+        when{
+            wordCount<=1000 -> "Flash Fiction"
+            wordCount<=7500 -> "Short Story"
+            else -> "Novel"
+            }
     }
 
+class Magazine(override val price: Int, override val wordCount: Int) : Publication {
+    override fun getType(): String {
+        return "Magazine"
+    }
 }
